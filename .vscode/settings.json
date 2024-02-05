@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "defines.h": "c",
+        "platform.h": "c",
+        "time.h": "c"
+    }
+}
