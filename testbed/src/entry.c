@@ -2,8 +2,7 @@
 
 #include <entry.h>
 
-// TODO: REMOVE
-#include <platform/platform.h>
+#include <core/lmemory.h>
 
 b8 create_game(game *out_game) {
   
@@ -21,7 +20,7 @@ b8 create_game(game *out_game) {
   out_game->on_resize = game_on_resize;
   
   // Create the game state
-  out_game->state = platform_allocate(sizeof(game_state), FALSE);
+  out_game->state = lallocate(sizeof(game_state), MEM_TAG_GAME);
   
   return TRUE;
 }
