@@ -69,7 +69,7 @@ b8 application_run() {
     if (!platform_pump_messages(&app_state.platform)) {
       app_state.is_running = FALSE;
     }
-
+  
     if (!app_state.is_suspended) {
       if (!app_state.game_inst->update(app_state.game_inst, (f32)0)) {
         LOG_FATAL("Game update failed. Shutting down now.");
