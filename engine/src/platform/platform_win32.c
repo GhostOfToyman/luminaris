@@ -88,7 +88,7 @@ b8 platform_startup(platform_state *plat_state, const char *application_name,
     MessageBoxA(NULL, "Window creation failed!", "Error!",
                 MB_ICONEXCLAMATION | MB_OK);
 
-    KFATAL("Window creation failed!");
+    LOG_FATAL("Window creation failed!");
     return FALSE;
   } else {
     state->hwnd = handle;

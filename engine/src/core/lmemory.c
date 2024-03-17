@@ -95,6 +95,13 @@ char *get_memory_usage_str() {
                           memory_tag_strings[i], amount, unit);
     offset += length;
   }
+
+  // temporary platform specific issue fix 
+#if LPLATFORM_WINDOWS
+  char *out_string = _strdup(buffer);
+#elif LPLATFORM_LINUX  
   char *out_string = strdup(buffer);
+#endif
+
   return out_string;
 }

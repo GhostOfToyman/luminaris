@@ -48,7 +48,7 @@ b8 application_create(game *game_inst) {
     return FALSE;
   }
 
-  // initialize game
+      // initialize game
   if (!app_state.game_inst->initialize(app_state.game_inst)) {
     LOG_FATAL("Game failed to initialize!");
     return FALSE;

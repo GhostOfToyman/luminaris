@@ -30,3 +30,4 @@ LAPI void _darray_pop(void* array, void* dest);
 LAPI void* _darray_push_at(void* array, u64 index, void* value_ptr);
 LAPI void* _darray_pop_at(void* array, u64 index, void* dest);
 
+
