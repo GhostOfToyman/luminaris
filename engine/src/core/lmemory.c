@@ -96,12 +96,7 @@ char *get_memory_usage_str() {
     offset += length;
   }
 
-  // temporary platform specific issue fix 
-#if LPLATFORM_WINDOWS
-  char *out_string = _strdup(buffer);
-#elif LPLATFORM_LINUX  
-  char *out_string = strdup(buffer);
-#endif
+  char *out_string = STRDUP(buffer);
 
   return out_string;
 }
