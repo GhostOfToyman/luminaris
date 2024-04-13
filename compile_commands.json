@@ -180,12 +180,12 @@
       "-x",
       "c",
       "-o",
-      "/tmp/platform_win32-45b8e9.o",
+      "/tmp/platform_win32-791689.o",
       "./src/platform/platform_win32.c"
     ],
     "directory": "/home/patrickr/Development/Games/luminaris/engine",
     "file": "/home/patrickr/Development/Games/luminaris/engine/src/platform/platform_win32.c",
-    "output": "/tmp/platform_win32-45b8e9.o"
+    "output": "/tmp/platform_win32-791689.o"
   },
   {
     "arguments": [
@@ -254,12 +254,12 @@
       "-x",
       "c",
       "-o",
-      "/tmp/platform_linux-caed39.o",
+      "/tmp/platform_linux-3d0494.o",
       "./src/platform/platform_linux.c"
     ],
     "directory": "/home/patrickr/Development/Games/luminaris/engine",
     "file": "/home/patrickr/Development/Games/luminaris/engine/src/platform/platform_linux.c",
-    "output": "/tmp/platform_linux-caed39.o"
+    "output": "/tmp/platform_linux-3d0494.o"
   },
   {
     "arguments": [
@@ -328,12 +328,12 @@
       "-x",
       "c",
       "-o",
-      "/tmp/logger-88f957.o",
+      "/tmp/logger-f7b4bb.o",
       "./src/core/logger.c"
     ],
     "directory": "/home/patrickr/Development/Games/luminaris/engine",
     "file": "/home/patrickr/Development/Games/luminaris/engine/src/core/logger.c",
-    "output": "/tmp/logger-88f957.o"
+    "output": "/tmp/logger-f7b4bb.o"
   },
   {
     "arguments": [
@@ -402,12 +402,12 @@
       "-x",
       "c",
       "-o",
-      "/tmp/application-81e9c1.o",
+      "/tmp/application-194001.o",
       "./src/core/application.c"
     ],
     "directory": "/home/patrickr/Development/Games/luminaris/engine",
     "file": "/home/patrickr/Development/Games/luminaris/engine/src/core/application.c",
-    "output": "/tmp/application-81e9c1.o"
+    "output": "/tmp/application-194001.o"
   },
   {
     "arguments": [
@@ -476,12 +476,12 @@
       "-x",
       "c",
       "-o",
-      "/tmp/event-845293.o",
+      "/tmp/event-2934d0.o",
       "./src/core/event.c"
     ],
     "directory": "/home/patrickr/Development/Games/luminaris/engine",
     "file": "/home/patrickr/Development/Games/luminaris/engine/src/core/event.c",
-    "output": "/tmp/event-845293.o"
+    "output": "/tmp/event-2934d0.o"
   },
   {
     "arguments": [
@@ -550,12 +550,12 @@
       "-x",
       "c",
       "-o",
-      "/tmp/lmemory-15ee1f.o",
+      "/tmp/lmemory-fd4c31.o",
       "./src/core/lmemory.c"
     ],
     "directory": "/home/patrickr/Development/Games/luminaris/engine",
     "file": "/home/patrickr/Development/Games/luminaris/engine/src/core/lmemory.c",
-    "output": "/tmp/lmemory-15ee1f.o"
+    "output": "/tmp/lmemory-fd4c31.o"
   },
   {
     "arguments": [
@@ -662,12 +662,12 @@
       "-x",
       "c",
       "-o",
-      "/tmp/entry-0ba365.o",
+      "/tmp/entry-edc680.o",
       "./src/entry.c"
     ],
     "directory": "/home/patrickr/Development/Games/luminaris/testbed",
     "file": "/home/patrickr/Development/Games/luminaris/testbed/src/entry.c",
-    "output": "/tmp/entry-0ba365.o"
+    "output": "/tmp/entry-edc680.o"
   },
   {
     "arguments": [
@@ -736,11 +736,11 @@
       "-x",
       "c",
       "-o",
-      "/tmp/game-05ec2f.o",
+      "/tmp/game-ba3ef4.o",
       "./src/game.c"
     ],
     "directory": "/home/patrickr/Development/Games/luminaris/testbed",
     "file": "/home/patrickr/Development/Games/luminaris/testbed/src/game.c",
-    "output": "/tmp/game-05ec2f.o"
+    "output": "/tmp/game-ba3ef4.o"
   }
 ]

@@ -1,6 +1,7 @@
 #include "lmemory.h"
 
 #include "core/logger.h"
+#include "core/lstring.h"
 #include "defines.h"
 #include "platform/platform.h"
 
@@ -96,7 +97,7 @@ char *get_memory_usage_str() {
     offset += length;
   }
 
-  char *out_string = STRDUP(buffer);
+  char *out_string = lstrdup(buffer);
 
   return out_string;
 }
