@@ -67,7 +67,7 @@ void input_process_button(buttons button, b8 pressed) {
 
 void input_process_mouse_move(i16 x, i16 y) {
 	if (state.mouse_current.x != x || state.mouse_current.y != y) {
-		// ENABLE FOR DEBUG
+		// TODO: ENABLE FOR DEBUG
 		// LOG_DEBUG("Mouse pos: %i %i", x, y);
 
 		state.mouse_current.x = x;
