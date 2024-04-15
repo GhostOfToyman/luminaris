@@ -1,6 +1,5 @@
 #include "platform.h"
-#include <X11/X.h>
-#include <xcb/xproto.h>
+
 
 // Linux platform layer.
 #if LPLATFORM_LINUX
@@ -12,6 +11,8 @@
 #include <X11/XKBlib.h>   // sudo apt-get install libx11-dev
 #include <X11/Xlib-xcb.h> // sudo apt-get install libxkbcommon-x11-dev
 #include <X11/Xlib.h>
+#include <X11/X.h>
+#include <xcb/xproto.h>
 #include <X11/keysym.h>
 #include <sys/time.h>
 #include <xcb/xcb.h>

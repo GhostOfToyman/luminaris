@@ -1,11 +1,15 @@
 #include "application.h"
-#include "core/logger.h"
 #include "defines.h"
 #include "game_types.h"
 #include "platform/platform.h"
+
+#include "core/logger.h"
 #include "core/lmemory.h"
 #include "core/event.h"
 #include "core/input.h"
+#include "core/clock.h"
+
+#include "renderer/renderer_frontend.h"
 
 typedef struct application_state {
   game *game_inst;
@@ -14,6 +18,7 @@ typedef struct application_state {
   platform_state platform;
   i16 width;
   i16 height;
+  clock clock;
   i16 last_time;
 } application_state;
 
@@ -64,6 +69,11 @@ b8 application_create(game *game_inst) {
     return FALSE;
   }
 
+  if (!renderer_initialize(game_inst->app_config.name, &app_state.platform)) {
+    LOG_FATAL("Failed to initialize renderer. Aborting.");
+    return FALSE;
+  }
+
       // initialize game
   if (!app_state.game_inst->initialize(app_state.game_inst)) {
     LOG_FATAL("Game failed to initialize!");
@@ -79,7 +89,14 @@ b8 application_create(game *game_inst) {
 }
 
 b8 application_run() {
-  LOG_INFO(get_memory_usage_str());
+    clock_start(&app_state.clock);
+    clock_update(&app_state.clock);
+    app_state.last_time = app_state.clock.elapsed;
+    f64 running_time = 0;
+    u8 frame_count = 0;
+    f64 target_frame_seconds = 1.0f / 60;
+    
+    LOG_INFO(get_memory_usage_str());
 
   while (app_state.is_running) {
     if (!platform_pump_messages(&app_state.platform)) {
@@ -87,19 +104,48 @@ b8 application_run() {
     }
   
     if (!app_state.is_suspended) {
-      if (!app_state.game_inst->update(app_state.game_inst, (f32)0)) {
+        // clock update and delta time
+        clock_update(&app_state.clock);
+        f64 current_time = app_state.clock.elapsed;
+        f64 delta = (current_time - app_state.last_time);
+        f64 frame_start_time = platform_get_absolute_time();
+
+      if (!app_state.game_inst->update(app_state.game_inst, delta)) {
         LOG_FATAL("Game update failed. Shutting down now.");
         app_state.is_running = FALSE;
         break;
       }
 
-      if (!app_state.game_inst->render(app_state.game_inst, (f32)0)) { 
+      if (!app_state.game_inst->render(app_state.game_inst, delta)) { 
         LOG_FATAL("Game render failed. Shuting down now.");
         app_state.is_running = FALSE;
         break;
       }
 
-      input_update(0);
+      // TODO: More robust
+      render_packet packet;
+      packet.delta_time = delta;
+      renderer_draw_frame(&packet);
+
+      f64 frame_end_time = platform_get_absolute_time();
+      f64 frame_elapsed_time = frame_end_time - frame_start_time;
+      running_time += frame_elapsed_time;
+      f64 remaining_seconds = target_frame_seconds - frame_elapsed_time;
+
+      if (remaining_seconds > 0) {
+          u64 remaining_ms = (remaining_seconds * 1000);
+
+          b8 limit_frames = FALSE;
+          if (remaining_ms > 0 && limit_frames) {
+              platform_sleep(remaining_ms - 1);
+          }
+
+          frame_count++;
+      }
+
+      input_update(delta);
+
+      app_state.last_time = current_time;
     }
   }
 
@@ -111,6 +157,8 @@ b8 application_run() {
   event_unregister(EVENT_CODE_KEY_RELEASED, 0, application_on_key);
   event_shutdown();
   input_shutdown();
+
+  renderer_shutdown();
 
   platform_shutdown(&app_state.platform);
 
