@@ -11,3 +11,9 @@ char *lstrdup(const char *str) {
   lcopy_memory(copy, str, length);
   return copy;
 }
+
+// Case sensitive
+b8 lstreq(const char* str0, const char* str1) {
+  return strcmp(str0, str1) == 0;
+}
+
