@@ -29,6 +29,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define VK_USE_PLATFORM_XCB_KHR
+#include <vulkan/vulkan.h>
+#include "renderer/vulkan/vulkan_types.h"
+
 typedef struct internal_state {
   Display *display;
   xcb_connection_t *connection;
@@ -36,6 +40,7 @@ typedef struct internal_state {
   xcb_screen_t *screen;
   xcb_atom_t wm_protocols;
   xcb_atom_t wm_delete_win;
+  VkSurfaceKHR surface;
 } internal_state;
 
 // Translate X11 keycodes to our own keycodes.
@@ -285,6 +290,26 @@ void platform_sleep(u64 ms) {
 void platform_get_required_extension_names(const char*** extension_names_darray) {
   darray_push(*extension_names_darray, &"VK_KHR_xcb_surface"); // VK_KHR_xlib_surface
 }
+
+b8 platform_create_vulkan_surface(struct platform_state* plat_state, struct vulkan_context* context) {
+  internal_state *state = (internal_state *)plat_state->internal_state;
+
+  VkXcbSurfaceCreationInfoKHR create_info = {}
+  create.info.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
+  create.info.connection = state->connection;
+  create.info.window = state->window;
+
+  VkResult = vkCreateXcbSurfaceKHR(context->instance, &create_info, context->allocator, &state->surface);
+  if (!(VkResult == VK_SUCCESS)) {
+    LOG_FATAL("Failed to create Vulkan surface");
+    return FALSE;
+  }
+
+  context->state = state->context;
+  return TRUE;
+}
+
+
 
 keys translate_keycode(u32 xcb_keycode) {
   switch (xcb_keycode) {

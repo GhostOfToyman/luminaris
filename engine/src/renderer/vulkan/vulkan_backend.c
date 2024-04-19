@@ -2,6 +2,7 @@
 
 #include "vulkan_types.inl"
 #include "vulkan_platform.h"
+#include "vulkan_device.h"
 
 #include "core/logger.h"
 #include "core/lstring.h"
@@ -107,7 +108,8 @@ b8 vulkan_renderer_backend_initialize(renderer_backend* backend, const char* app
                        VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT;  //|
                                                                       //    VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT;
 
-    VkDebugUtilsMessengerCreateInfoEXT debug_create_info = {VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT};
+    VkDebugUtilsMessengerCreateInfoEXT debug_create_info = {};
+    debug_create_info.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
     debug_create_info.messageSeverity = log_severity;
     debug_create_info.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
     debug_create_info.pfnUserCallback = vk_debug_callback;
@@ -118,6 +120,20 @@ b8 vulkan_renderer_backend_initialize(renderer_backend* backend, const char* app
     VK_CHECK(func(context.instance, &debug_create_info, context.allocator, &context.debug_messenger));
     LOG_DEBUG("Vulkan debugger created.");
 #endif
+
+    // Surface 
+    LOG_DEBUG("Creating Vulkan surface...");
+    if (!platform_create_vulkan_surface(plat_state, &context)) {
+        LOG_ERROR("Failed to create Vulkan surface.");
+        return FALSE;
+    }
+    LOG_DEBUG("Vulkan surface created successfully.");
+
+    // Device
+    if (!vulkan_device_create(&context)) {
+        LOG_ERROR("Failed to create device!");
+        return FALSE;
+    }
 
     LOG_INFO("Vulkan renderer initialized successfully.");
     return TRUE;
